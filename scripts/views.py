@@ -142,8 +142,11 @@ def views(target, do_assemblies = None):
     times.read_times(target_dir)
     options.check_options(deps_dir)
     bounds_fname = top_dir + 'stls/bounds.json'
-    with open(bounds_fname) as json_file:
-        bounds_map = json.load(json_file)
+    try:
+        with open(bounds_fname) as json_file:
+            bounds_map = json.load(json_file)
+    except FileNotFoundError:
+        bounds_map = []
     #
     # Find all the assemblies and remove any old views
     #
